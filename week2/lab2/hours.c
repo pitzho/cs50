@@ -15,7 +15,7 @@ int main(void)
     {
         do
         {
-            hours[i] = get_int("Hours taken on week %i: ", i);
+            hours[i] = get_int("Week %i HW Hours: ", i);
         } while (hours[i] < 0);
     }
         
@@ -23,7 +23,7 @@ int main(void)
     char func;
     do
     {
-        func = get_char("Enter T for total hours or A for average: ");
+        func = get_char("Enter T for total hours, A for average hours per week: ");
         func = tolower(func);
     }
     while (func != 'a' && func != 't');
