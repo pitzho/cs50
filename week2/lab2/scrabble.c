@@ -18,7 +18,7 @@ int main(void)
     int score1 = compute_score(word1);
     int score2 = compute_score(word2);
 
-    // TODO: Print the winner
+    // Print the winner
     if (score1 > score2)
     {
         printf("Player 1 wins!\n");
@@ -38,19 +38,44 @@ int main(void)
 
 int compute_score(string word)
 {
-    // TODO: Compute and return score for string
+    // Compute and return score for string
+    int sum = 0;
     int length = strlen(word);
+    
     for (int i = 0; i < length; i++)
     {
         word[i] = tolower(word[i]);
     }
-    int sum = 0;
+    
     for (int i = 0; i < length; i++)
     {
-        if (word[i] > 96 && word[i] < 123)
+        if (word[i] > 96 && word[i] < 123) // Look ASCII table
         {
-            sum = sum + POINTS[word[i] - 97];
+            sum += POINTS[word[i] - 97];
         }
     }
+    
     return sum;
 }
+
+// Solution from CS50
+// int compute_score(string word)
+// {
+//     // Keep track of score
+//     int score = 0;
+
+//     // Compute score for each character
+//     for (int i = 0, len = strlen(word); i < len; i++)
+//     {
+//         if (isupper(word[i]))
+//         {
+//             score += POINTS[word[i] - 'A'];
+//         }
+//         else if (islower(word[i]))
+//         {
+//             score += POINTS[word[i] - 'a'];
+//         }    
+//     }
+    
+//     return score;
+// }
