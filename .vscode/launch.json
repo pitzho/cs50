@@ -3,9 +3,7 @@
     "configurations": [
         {
             "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [
-                "13"
-            ]
+            "args": []
         },
         {
             "name": "C/C++: gcc build and debug active file",
