@@ -7,7 +7,8 @@
 // each of our text files contains 1000 words
 #define LISTSIZE 1000
 
-// values for colors and score (EXACT == right letter, right place; CLOSE == right letter, wrong place; WRONG == wrong letter)
+// values for colors and score (EXACT == right letter, right place; CLOSE == right letter, wrong place; 
+// WRONG == wrong letter)
 #define EXACT 2
 #define CLOSE 1
 #define WRONG 0
