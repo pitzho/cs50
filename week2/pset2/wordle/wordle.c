@@ -7,8 +7,7 @@
 // each of our text files contains 1000 words
 #define LISTSIZE 1000
 
-// values for colors and score (EXACT == right letter, right place; CLOSE == right letter, wrong place; 
-// WRONG == wrong letter)
+// values for colors and score (EXACT == right letter, right place; CLOSE == right letter, wrong place; WRONG == wrong letter)
 #define EXACT 2
 #define CLOSE 1
 #define WRONG 0
@@ -27,12 +26,26 @@ void print_word(string guess, int wordsize, int status[]);
 int main(int argc, string argv[])
 {
     // ensure proper usage
-    // TODO #1
+    // TODO #1 = DONE
+    if (argc != 2)
+    {
+        printf("Usage: ./wordle wordsize\n");
+        return 1;
+    }
 
     int wordsize = 0;
 
     // ensure argv[1] is either 5, 6, 7, or 8 and store that value in wordsize instead
     // TODO #2
+    if ((strlen(argv[0]) == 1) && (isdigit(argv[0][0])))
+    {
+        wordsize = atoi(argv[0]);
+    }
+    else
+    {
+        printf("Error: wordsize must be either 5, 6, 7, or 8\n");
+        return 1;
+    }
 
     // open correct file, each file has exactly LISTSIZE words
     char wl_filename[6];
@@ -80,7 +93,7 @@ int main(int argc, string argv[])
         int score = check_word(guess, wordsize, status, choice);
 
         printf("Guess %i: ", i + 1);
-        
+
         // Print the guess
         print_word(guess, wordsize, status);
 
