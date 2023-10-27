@@ -1,4 +1,5 @@
 #include <cs50.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -23,6 +24,15 @@ string get_guess(int wordsize);
 int check_word(string guess, int wordsize, int status[], string choice);
 void print_word(string guess, int wordsize, int status[]);
 
+// TODO 1   DONE
+// TODO 2   DONE
+// TODO 3   DONE
+// TODO 4   DONE
+// TODO 5   
+// TODO 6   
+// TODO 7   
+
+
 int main(int argc, string argv[])
 {
     // ensure proper usage
@@ -36,10 +46,16 @@ int main(int argc, string argv[])
     int wordsize = 0;
 
     // ensure argv[1] is either 5, 6, 7, or 8 and store that value in wordsize instead
-    // TODO #2
-    if ((strlen(argv[0]) == 1) && (isdigit(argv[0][0])))
+    // TODO #2 = DONE
+    if ((strlen(argv[1]) == 1) && (isdigit(argv[1][0])))
     {
-        wordsize = atoi(argv[0]);
+        wordsize = atoi(argv[1]);
+        if (!(wordsize >= 5 && wordsize <= 8))
+        {
+            printf("Error: wordsize must be either 5, 6, 7, or 8\n");
+            return 1;
+        }
+        
     }
     else
     {
@@ -87,7 +103,11 @@ int main(int argc, string argv[])
         int status[wordsize];
 
         // set all elements of status array initially to 0, aka WRONG
-        // TODO #4
+        // TODO #4 = DONE
+        for (int i = 0; i < wordsize; i++)
+        {
+            status[i] = 0;
+        }
 
         // Calculate score for the guess
         int score = check_word(guess, wordsize, status, choice);
@@ -117,11 +137,11 @@ string get_guess(int wordsize)
     string guess = "";
 
     // ensure users actually provide a guess that is the correct length
-    // TODO #3
+    // TODO #3 = DONE
     do
     {
-        /* code */
-    } while (/* condition */);
+        guess = get_string("Input a %i-letter word: ", wordsize);
+    } while (strlen(guess) != wordsize);
     
     return guess;
 }
@@ -132,14 +152,29 @@ int check_word(string guess, int wordsize, int status[], string choice)
 
     // compare guess to choice and score points as appropriate, storing points in status
     // TODO #5
-
-    // HINTS
     // iterate over each letter of the guess
+    for (int i = 0; i < wordsize; i++)
+    {
         // iterate over each letter of the choice
+        for (int j = 0; j < wordsize; j++)
+        {
             // compare the current guess letter to the current choice letter
+            if (guess[i] == choice[i])
+            {
                 // if they're the same position in the word, score EXACT points (green) and break so you don't compare that letter further
+                status[i] = 2;
+                break;
+            }
+            if (guess[i] == choice[j])
+            {
                 // if it's in the word, but not the right spot, score CLOSE point (yellow)
+                status[i] = 1;
+            }
+        }
+        
         // keep track of the total score by adding each individual letter's score from above
+
+    }
 
     return score;
 }
