@@ -1,7 +1,7 @@
 #include <cs50.h>
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
@@ -14,24 +14,15 @@
 #define WRONG 0
 
 // ANSI color codes for boxed in letters
-#define GREEN   "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m"
-#define YELLOW  "\e[38;2;255;255;255;1m\e[48;2;201;180;88;1m"
-#define RED     "\e[38;2;255;255;255;1m\e[48;2;220;20;60;1m"
-#define RESET   "\e[0;39m"
+#define GREEN  "\e[38;2;255;255;255;1m\e[48;2;106;170;100;1m"
+#define YELLOW "\e[38;2;255;255;255;1m\e[48;2;201;180;88;1m"
+#define RED    "\e[38;2;255;255;255;1m\e[48;2;220;20;60;1m"
+#define RESET  "\e[0;39m"
 
 // user-defined function prototypes
 string get_guess(int wordsize);
 int check_word(string guess, int wordsize, int status[], string choice);
 void print_word(string guess, int wordsize, int status[]);
-
-// TODO 1   DONE
-// TODO 2   DONE
-// TODO 3   DONE
-// TODO 4   DONE
-// TODO 5   
-// TODO 6   
-// TODO 7   
-
 
 int main(int argc, string argv[])
 {
@@ -55,7 +46,6 @@ int main(int argc, string argv[])
             printf("Error: wordsize must be either 5, 6, 7, or 8\n");
             return 1;
         }
-        
     }
     else
     {
@@ -90,7 +80,7 @@ int main(int argc, string argv[])
     bool won = false;
 
     // print greeting, using ANSI color codes to demonstrate
-    printf(GREEN"This is WORDLE50"RESET"\n");
+    printf(GREEN "This is WORDLE50" RESET "\n");
     printf("You have %i tries to guess the %i-letter word I'm thinking of\n", guesses, wordsize);
 
     // main game loop, one iteration for each guess
@@ -104,9 +94,9 @@ int main(int argc, string argv[])
 
         // set all elements of status array initially to 0, aka WRONG
         // TODO #4 = DONE
-        for (int i = 0; i < wordsize; i++)
+        for (int j = 0; j < wordsize; j++)
         {
-            status[i] = 0;
+            status[j] = 0;
         }
 
         // Calculate score for the guess
@@ -126,7 +116,15 @@ int main(int argc, string argv[])
     }
 
     // Print the game's result
-    // TODO #7
+    // TODO #7 = DONE
+    if (won == true)
+    {
+        printf("You won!\n");
+    }
+    else
+    {
+        printf("Target word was: %s\n", choice);
+    }
 
     // that's all folks!
     return 0;
@@ -141,8 +139,9 @@ string get_guess(int wordsize)
     do
     {
         guess = get_string("Input a %i-letter word: ", wordsize);
-    } while (strlen(guess) != wordsize);
-    
+    }
+    while (strlen(guess) != wordsize);
+
     return guess;
 }
 
@@ -151,7 +150,7 @@ int check_word(string guess, int wordsize, int status[], string choice)
     int score = 0;
 
     // compare guess to choice and score points as appropriate, storing points in status
-    // TODO #5
+    // TODO #5 = DONE
     // iterate over each letter of the guess
     for (int i = 0; i < wordsize; i++)
     {
@@ -161,7 +160,8 @@ int check_word(string guess, int wordsize, int status[], string choice)
             // compare the current guess letter to the current choice letter
             if (guess[i] == choice[i])
             {
-                // if they're the same position in the word, score EXACT points (green) and break so you don't compare that letter further
+                // if they're the same position in the word, score EXACT points (green) and break so you don't compare that letter
+                // further
                 status[i] = 2;
                 break;
             }
@@ -171,9 +171,9 @@ int check_word(string guess, int wordsize, int status[], string choice)
                 status[i] = 1;
             }
         }
-        
-        // keep track of the total score by adding each individual letter's score from above
 
+        // keep track of the total score by adding each individual letter's score from above
+        score += status[i];
     }
 
     return score;
@@ -182,7 +182,23 @@ int check_word(string guess, int wordsize, int status[], string choice)
 void print_word(string guess, int wordsize, int status[])
 {
     // print word character-for-character with correct color coding, then reset terminal font to normal
-    // TODO #6
+    // TODO #6 = DONE
+    // EXAMPLE: printf(GREEN"This is WORDLE50"RESET"\n");
+    for (int i = 0; i < wordsize; i++)
+    {
+        if (status[i] == 2)
+        {
+            printf(GREEN "%c" RESET, guess[i]);
+        }
+        else if (status[i] == 1)
+        {
+            printf(YELLOW "%c" RESET, guess[i]);
+        }
+        else
+        {
+            printf(RED "%c" RESET, guess[i]);
+        }
+    }
 
     printf("\n");
     return;
